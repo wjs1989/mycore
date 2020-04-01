@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/cms-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3" >
+		<!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- 格式化java代码 -->
+		<property  name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"></property>
+
+		<!-- 格式化XML代码 -->
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"></property>
+		
+		<!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+	    <property name="beginningDelimiter" value="`"/>
+	    <property name="endingDelimiter" value="`"/>
+
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characeterEncoding=utf-8&amp;serverTimezone=UTC"
+			userId="root" password="123456">
+		</jdbcConnection>
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
+			和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.wjs.mybatis.pojo" targetProject="src/main/java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 设置一个根对象-->
+<!--			<property name="rootClass" value="com.wjs.mybatis.core.BasePojo"/>-->
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.wjs.mybatis.dao" targetProject="src/main/java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- 指定数据库表 -->
+		<table tableName="person"
+			   enableInsert="true"
+			   enableSelectByPrimaryKey="true"
+			   enableUpdateByPrimaryKey="true"
+			   enableDeleteByPrimaryKey="true"
+			   enableSelectByExample="false"
+			   enableDeleteByExample="false"
+			   enableCountByExample="false"
+			   selectByExampleQueryId="true"
+			   enableUpdateByExample="false">
+			<!-- <property name="selectAllOrderByClause" value="CreateTime desc"/> -->
+			<property name="delimitedColumnName" value="true" />
+
+			<!--驼峰命名-->
+			<property name="useActualColumnNames" value="false" />
+		</table>
+	</context>
+</generatorConfiguration>

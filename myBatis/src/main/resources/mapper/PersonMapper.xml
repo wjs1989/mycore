@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjs.mybatis.dao.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.wjs.mybatis.pojo.Person">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="person_id" jdbcType="VARCHAR" property="personId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="tele_no" jdbcType="VARCHAR" property="teleNo" />
+    <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />
+    <result column="certificate_no" jdbcType="VARCHAR" property="certificateNo" />
+    <result column="relation" jdbcType="VARCHAR" property="relation" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="household_type" jdbcType="VARCHAR" property="householdType" />
+    <result column="emergency_person" jdbcType="VARCHAR" property="emergencyPerson" />
+    <result column="emergency_tele_no" jdbcType="VARCHAR" property="emergencyTeleNo" />
+    <result column="departure_city_province" jdbcType="VARCHAR" property="departureCityProvince" />
+    <result column="departure_city_city" jdbcType="VARCHAR" property="departureCityCity" />
+    <result column="departure_city_district" jdbcType="VARCHAR" property="departureCityDistrict" />
+    <result column="in_time" jdbcType="VARCHAR" property="inTime" />
+    <result column="transport" jdbcType="VARCHAR" property="transport" />
+    <result column="station" jdbcType="VARCHAR" property="station" />
+    <result column="train_number" jdbcType="VARCHAR" property="trainNumber" />
+    <result column="carriage" jdbcType="VARCHAR" property="carriage" />
+    <result column="seat_number" jdbcType="VARCHAR" property="seatNumber" />
+    <result column="passenger_station" jdbcType="VARCHAR" property="passengerStation" />
+    <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
+    <result column="other_transport" jdbcType="VARCHAR" property="otherTransport" />
+    <result column="arrival_time" jdbcType="VARCHAR" property="arrivalTime" />
+    <result column="home_type" jdbcType="VARCHAR" property="homeType" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="street" jdbcType="VARCHAR" property="street" />
+    <result column="village" jdbcType="VARCHAR" property="village" />
+    <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="company_type" jdbcType="VARCHAR" property="companyType" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="cause" jdbcType="VARCHAR" property="cause" />
+    <result column="go_hubei" jdbcType="VARCHAR" property="goHubei" />
+    <result column="hot_person" jdbcType="VARCHAR" property="hotPerson" />
+    <result column="temp" jdbcType="VARCHAR" property="temp" />
+    <result column="temperature" jdbcType="VARCHAR" property="temperature" />
+    <result column="person_type" jdbcType="VARCHAR" property="personType" />
+    <result column="declaration_type" jdbcType="VARCHAR" property="declarationType" />
+    <result column="external" jdbcType="VARCHAR" property="external" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="code_color" jdbcType="VARCHAR" property="codeColor" />
+    <result column="my_remark" jdbcType="VARCHAR" property="myRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, person_id, name, tele_no, certificate_type, certificate_no, relation, sex, household_type, 
+    emergency_person, emergency_tele_no, departure_city_province, departure_city_city, 
+    departure_city_district, in_time, transport, station, train_number, carriage, seat_number, 
+    passenger_station, car_number, other_transport, arrival_time, home_type, district, 
+    street, village, detail_address, company_type, company_name, cause, go_hubei, hot_person, 
+    temp, temperature, person_type, declaration_type, external, create_time, modify_time, 
+    code_color, my_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from person
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wjs.mybatis.pojo.Person" useGeneratedKeys="true" keyProperty="id">
+    insert into person (id, person_id, name, 
+      tele_no, certificate_type, certificate_no, 
+      relation, sex, household_type, 
+      emergency_person, emergency_tele_no, departure_city_province, 
+      departure_city_city, departure_city_district, 
+      in_time, transport, station, 
+      train_number, carriage, seat_number, 
+      passenger_station, car_number, other_transport, 
+      arrival_time, home_type, district, 
+      street, village, detail_address, 
+      company_type, company_name, cause, 
+      go_hubei, hot_person, temp, 
+      temperature, person_type, declaration_type, 
+      external, create_time, modify_time, 
+      code_color, my_remark)
+    values (#{id,jdbcType=VARCHAR}, #{personId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{teleNo,jdbcType=VARCHAR}, #{certificateType,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
+      #{relation,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{householdType,jdbcType=VARCHAR}, 
+      #{emergencyPerson,jdbcType=VARCHAR}, #{emergencyTeleNo,jdbcType=VARCHAR}, #{departureCityProvince,jdbcType=VARCHAR}, 
+      #{departureCityCity,jdbcType=VARCHAR}, #{departureCityDistrict,jdbcType=VARCHAR}, 
+      #{inTime,jdbcType=VARCHAR}, #{transport,jdbcType=VARCHAR}, #{station,jdbcType=VARCHAR}, 
+      #{trainNumber,jdbcType=VARCHAR}, #{carriage,jdbcType=VARCHAR}, #{seatNumber,jdbcType=VARCHAR}, 
+      #{passengerStation,jdbcType=VARCHAR}, #{carNumber,jdbcType=VARCHAR}, #{otherTransport,jdbcType=VARCHAR}, 
+      #{arrivalTime,jdbcType=VARCHAR}, #{homeType,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{street,jdbcType=VARCHAR}, #{village,jdbcType=VARCHAR}, #{detailAddress,jdbcType=VARCHAR}, 
+      #{companyType,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{cause,jdbcType=VARCHAR}, 
+      #{goHubei,jdbcType=VARCHAR}, #{hotPerson,jdbcType=VARCHAR}, #{temp,jdbcType=VARCHAR}, 
+      #{temperature,jdbcType=VARCHAR}, #{personType,jdbcType=VARCHAR}, #{declarationType,jdbcType=VARCHAR}, 
+      #{external,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{codeColor,jdbcType=VARCHAR}, #{myRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wjs.mybatis.pojo.Person">
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="personId != null">
+        person_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="teleNo != null">
+        tele_no,
+      </if>
+      <if test="certificateType != null">
+        certificate_type,
+      </if>
+      <if test="certificateNo != null">
+        certificate_no,
+      </if>
+      <if test="relation != null">
+        relation,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="householdType != null">
+        household_type,
+      </if>
+      <if test="emergencyPerson != null">
+        emergency_person,
+      </if>
+      <if test="emergencyTeleNo != null">
+        emergency_tele_no,
+      </if>
+      <if test="departureCityProvince != null">
+        departure_city_province,
+      </if>
+      <if test="departureCityCity != null">
+        departure_city_city,
+      </if>
+      <if test="departureCityDistrict != null">
+        departure_city_district,
+      </if>
+      <if test="inTime != null">
+        in_time,
+      </if>
+      <if test="transport != null">
+        transport,
+      </if>
+      <if test="station != null">
+        station,
+      </if>
+      <if test="trainNumber != null">
+        train_number,
+      </if>
+      <if test="carriage != null">
+        carriage,
+      </if>
+      <if test="seatNumber != null">
+        seat_number,
+      </if>
+      <if test="passengerStation != null">
+        passenger_station,
+      </if>
+      <if test="carNumber != null">
+        car_number,
+      </if>
+      <if test="otherTransport != null">
+        other_transport,
+      </if>
+      <if test="arrivalTime != null">
+        arrival_time,
+      </if>
+      <if test="homeType != null">
+        home_type,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="street != null">
+        street,
+      </if>
+      <if test="village != null">
+        village,
+      </if>
+      <if test="detailAddress != null">
+        detail_address,
+      </if>
+      <if test="companyType != null">
+        company_type,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="cause != null">
+        cause,
+      </if>
+      <if test="goHubei != null">
+        go_hubei,
+      </if>
+      <if test="hotPerson != null">
+        hot_person,
+      </if>
+      <if test="temp != null">
+        temp,
+      </if>
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="personType != null">
+        person_type,
+      </if>
+      <if test="declarationType != null">
+        declaration_type,
+      </if>
+      <if test="external != null">
+        external,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="codeColor != null">
+        code_color,
+      </if>
+      <if test="myRemark != null">
+        my_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teleNo != null">
+        #{teleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null">
+        #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyPerson != null">
+        #{emergencyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyTeleNo != null">
+        #{emergencyTeleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityProvince != null">
+        #{departureCityProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityCity != null">
+        #{departureCityCity,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityDistrict != null">
+        #{departureCityDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null">
+        #{inTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transport != null">
+        #{transport,jdbcType=VARCHAR},
+      </if>
+      <if test="station != null">
+        #{station,jdbcType=VARCHAR},
+      </if>
+      <if test="trainNumber != null">
+        #{trainNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carriage != null">
+        #{carriage,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNumber != null">
+        #{seatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="passengerStation != null">
+        #{passengerStation,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null">
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="otherTransport != null">
+        #{otherTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null">
+        #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="homeType != null">
+        #{homeType,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null">
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="village != null">
+        #{village,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null">
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null">
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="goHubei != null">
+        #{goHubei,jdbcType=VARCHAR},
+      </if>
+      <if test="hotPerson != null">
+        #{hotPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="temp != null">
+        #{temp,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="personType != null">
+        #{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationType != null">
+        #{declarationType,jdbcType=VARCHAR},
+      </if>
+      <if test="external != null">
+        #{external,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codeColor != null">
+        #{codeColor,jdbcType=VARCHAR},
+      </if>
+      <if test="myRemark != null">
+        #{myRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wjs.mybatis.pojo.Person">
+    update person
+    <set>
+      <if test="personId != null">
+        person_id = #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teleNo != null">
+        tele_no = #{teleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateType != null">
+        certificate_type = #{certificateType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null">
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null">
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyPerson != null">
+        emergency_person = #{emergencyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyTeleNo != null">
+        emergency_tele_no = #{emergencyTeleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityProvince != null">
+        departure_city_province = #{departureCityProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityCity != null">
+        departure_city_city = #{departureCityCity,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCityDistrict != null">
+        departure_city_district = #{departureCityDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null">
+        in_time = #{inTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transport != null">
+        transport = #{transport,jdbcType=VARCHAR},
+      </if>
+      <if test="station != null">
+        station = #{station,jdbcType=VARCHAR},
+      </if>
+      <if test="trainNumber != null">
+        train_number = #{trainNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carriage != null">
+        carriage = #{carriage,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNumber != null">
+        seat_number = #{seatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="passengerStation != null">
+        passenger_station = #{passengerStation,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null">
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="otherTransport != null">
+        other_transport = #{otherTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null">
+        arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="homeType != null">
+        home_type = #{homeType,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null">
+        street = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="village != null">
+        village = #{village,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null">
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null">
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="goHubei != null">
+        go_hubei = #{goHubei,jdbcType=VARCHAR},
+      </if>
+      <if test="hotPerson != null">
+        hot_person = #{hotPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="temp != null">
+        temp = #{temp,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null">
+        temperature = #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="personType != null">
+        person_type = #{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationType != null">
+        declaration_type = #{declarationType,jdbcType=VARCHAR},
+      </if>
+      <if test="external != null">
+        external = #{external,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codeColor != null">
+        code_color = #{codeColor,jdbcType=VARCHAR},
+      </if>
+      <if test="myRemark != null">
+        my_remark = #{myRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wjs.mybatis.pojo.Person">
+    update person
+    set person_id = #{personId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      tele_no = #{teleNo,jdbcType=VARCHAR},
+      certificate_type = #{certificateType,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      household_type = #{householdType,jdbcType=VARCHAR},
+      emergency_person = #{emergencyPerson,jdbcType=VARCHAR},
+      emergency_tele_no = #{emergencyTeleNo,jdbcType=VARCHAR},
+      departure_city_province = #{departureCityProvince,jdbcType=VARCHAR},
+      departure_city_city = #{departureCityCity,jdbcType=VARCHAR},
+      departure_city_district = #{departureCityDistrict,jdbcType=VARCHAR},
+      in_time = #{inTime,jdbcType=VARCHAR},
+      transport = #{transport,jdbcType=VARCHAR},
+      station = #{station,jdbcType=VARCHAR},
+      train_number = #{trainNumber,jdbcType=VARCHAR},
+      carriage = #{carriage,jdbcType=VARCHAR},
+      seat_number = #{seatNumber,jdbcType=VARCHAR},
+      passenger_station = #{passengerStation,jdbcType=VARCHAR},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      other_transport = #{otherTransport,jdbcType=VARCHAR},
+      arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      home_type = #{homeType,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      street = #{street,jdbcType=VARCHAR},
+      village = #{village,jdbcType=VARCHAR},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      cause = #{cause,jdbcType=VARCHAR},
+      go_hubei = #{goHubei,jdbcType=VARCHAR},
+      hot_person = #{hotPerson,jdbcType=VARCHAR},
+      temp = #{temp,jdbcType=VARCHAR},
+      temperature = #{temperature,jdbcType=VARCHAR},
+      person_type = #{personType,jdbcType=VARCHAR},
+      declaration_type = #{declarationType,jdbcType=VARCHAR},
+      external = #{external,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      code_color = #{codeColor,jdbcType=VARCHAR},
+      my_remark = #{myRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
