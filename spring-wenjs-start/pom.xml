@@ -23,14 +23,11 @@
 		<dependency>
 			<groupId>com.wjs</groupId>
 			<artifactId>spring-wenjs-auto-configuration</artifactId>
-
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
-
 	</build>
 
 </project>
