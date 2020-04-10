@@ -18,7 +18,9 @@
 	<modules>
 		<module>myProject</module>
         <module>myBatis</module>
-    </modules>
+		<module>mySpring</module>
+		<module>mySpring</module>
+	</modules>
 
 	<properties>
 		<java.version>1.8</java.version>
