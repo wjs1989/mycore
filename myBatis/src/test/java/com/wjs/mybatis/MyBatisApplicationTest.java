@@ -4,10 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wjs.entity.UserTemplate;
 import com.wjs.mybatis.Service.IPersonService;
-import com.wjs.mybatis.configuration.ApplicationConfiguration;
 import com.wjs.mybatis.dao.PersonMapper;
+import com.wjs.mybatis.dao.UserMapper;
 import com.wjs.mybatis.model.Animal;
 import com.wjs.mybatis.pojo.Person;
+import com.wjs.mybatis.pojo.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,16 @@ public class MyBatisApplicationTest {
     @Autowired
     private Person person;
 
-    @Test
+    @Autowired
+    private UserMapper userMapper;
+
+     @Test
+    void UserMapperTest() {
+        User user = userMapper.selectByPrimaryKey(5);
+        System.out.println(user);
+    }
+
+   // @Test
     void contextLoads() {
         Animal animal = new Animal();
 
@@ -50,7 +60,7 @@ public class MyBatisApplicationTest {
 
     }
 
-    @Test
+    //@Test
     void contextSql() {
         Person person = new Person();
         person.setId(UUID.randomUUID().toString());

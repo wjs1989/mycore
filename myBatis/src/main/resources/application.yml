@@ -6,8 +6,12 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://118.24.22.139:3306/myTest?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
+    initialization-mode: always
+    platform: user
+    schema-username: root
+    schema-password: 123456
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 30000
@@ -18,6 +22,7 @@ spring:
       connection-test-query: SELECT 1
       idle-timeout: 30000
       maximum-pool-size: 15
+#    schema: classpath:schema-department.sql,classpath:schema-department2.sql
   wjs:
     person-name: 温建水
 

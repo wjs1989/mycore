@@ -21,16 +21,11 @@ public class DbFactory {
         manageCache.put("persto",() ->{return new Animal();});
     }
 
-
-
     private Animal getManage(String key){
         ObjectFactory<Animal> animalObjectFactory = manageCache.get(key);
         Objects.requireNonNull(animalObjectFactory);
 
         return animalObjectFactory.getObject();
     }
-
-
-
 
 }

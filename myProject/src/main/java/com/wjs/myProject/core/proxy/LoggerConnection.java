@@ -27,7 +27,7 @@ public class LoggerConnection implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         try{
-            begin();
+             begin();
             method.invoke(connection,args);
             end();
         }catch (Exception e){

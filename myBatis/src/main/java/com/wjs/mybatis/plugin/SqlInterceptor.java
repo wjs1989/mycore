@@ -29,7 +29,6 @@ public class SqlInterceptor implements Interceptor {
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         BoundSql boundSql = statementHandler.getBoundSql();
         String sql = boundSql.getSql();
-
         Object proceed = invocation.proceed();
 
         //Object[] args = invocation.getArgs();
