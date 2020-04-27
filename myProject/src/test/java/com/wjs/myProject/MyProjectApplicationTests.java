@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class MyProjectApplicationTests {
 
-	@Autowired
+	@Autowired(required = false)
 	DbConnation dbConnation;
 
 	@Test
