@@ -1,0 +1,133 @@
+
+1、创建  ParseSqlController 
+
+@RestController()
+public class ParseSqlController {
+
+
+    @PostMapping("/parse")
+    public String SqlParse(@RequestBody GenericSqlModel genericSqlModel) throws Exception {
+
+        ISqlParse parser = SqlParseFactory.createParser(MySqlParse.class);
+
+        return parser.parse(genericSqlModel);
+
+    }
+
+
+}
+
+2、调用 http://localhost:8080/parse
+
+3、测试参数
+{
+  "dbid": 666,
+  "indexObj": {
+    "selectList": [
+      {
+        "column": "table_user.name"
+      },
+      {
+        "column": "table_user.age"
+      },
+      {
+        "column": "table_job.jobId"
+      },
+      {
+        "column": "table_job.jobName"
+      },
+      {
+        "column": "table_salary.money",
+        "varia": "sum"
+      },
+      {
+        "column": "table_company.companyName"
+      }
+    ],
+    "weiduList": [
+      {
+        "weidu": "userName"
+      },
+      {
+        "weidu": "userAge"
+      },
+      {
+        "weidu": ""
+      },
+      {
+        "weidu": ""
+      },
+      {
+        "weidu": "money"
+      }
+    ]
+  },
+  "sizerObj": {
+    "selectList": [
+      {
+        "column": "id",
+        "symbol": "=",
+        "val": "ttt",
+        "varia": 1
+      }
+    ]
+  },
+  "vclList": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                
+              ],
+              "id": 8888,
+              "linkObj": {
+                "checkstyle": "left join",
+                "linkArray": [
+                  {
+                    "leftcolumn": "jID",
+                    "rightcolumn": "id",
+                    "symbol": "="
+                  }
+                ]
+              },
+              "tablename": "table_salary"
+            }
+          ],
+          "id": 2,
+          "linkObj": {
+            "checkstyle": "right",
+            "linkArray": [
+              {
+                "leftcolumn": "cId",
+                "rightcolumn": "id",
+                "symbol": "="
+              }
+            ]
+          },
+          "tablename": "table_job"
+        },
+        {
+          "children": [
+            
+          ],
+          "id": 8888,
+          "linkObj": {
+            "checkstyle": "left join",
+            "linkArray": [
+              {
+                "leftcolumn": "bID",
+                "rightcolumn": "id",
+                "symbol": "="
+              }
+            ]
+          },
+          "tablename": "table_company"
+        }
+      ],
+      "id": 1,
+      "tablename": "table_user"
+    }
+  ]
+}

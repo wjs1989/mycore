@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class PersonController {
+    public static void main(String[] args) {
+        String[] split = "user.abc".split("\\.");
 
+
+        System.out.println();
+    }
 
 }

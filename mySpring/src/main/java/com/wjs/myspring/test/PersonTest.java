@@ -1,17 +1,20 @@
 package com.wjs.myspring.test;
 
 import com.wjs.myspring.entity.Person;
+import com.wjs.myspring.entity.Student;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class PersonTest {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext classPathXmlApplicationContext
-                = new ClassPathXmlApplicationContext("BeanXml.xml");
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("BeanXml.xml");
+       // Person person = (Person)classPathXmlApplicationContext.getBean("person");
+        // System.out.println(person.getName());
 
-        Person person = (Person)classPathXmlApplicationContext.getBean("person");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.wjs.myspring.register");
+        Student student = (Student)applicationContext.getBean("student");
+        System.out.println(student.getUserName());
 
-        ApplicationContext
-        System.out.println(person.getName());
     }
 }
