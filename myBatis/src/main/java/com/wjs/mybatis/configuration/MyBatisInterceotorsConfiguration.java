@@ -41,6 +41,10 @@ public class MyBatisInterceotorsConfiguration {
                 configuration.addInterceptor(sqlInterceptor());
             }
         };
+//      return configuration->{
+//            configuration.setMapUnderscoreToCamelCase(true);
+//            configuration.addInterceptor(sqlInterceptor());
+//        };
     }
 
 }

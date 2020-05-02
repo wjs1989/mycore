@@ -5,6 +5,7 @@ import com.wjs.mybatis.dao.PersonMapper;
 import com.wjs.mybatis.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ClassName PersonServiceImpl
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonServiceImpl implements IPersonService {
 
-  // @Autowired
+    //@Autowired
     private PersonMapper personMapper;
 
     @Override
@@ -24,6 +25,7 @@ public class PersonServiceImpl implements IPersonService {
         return personMapper.insert(record);
     }
 
+    @Transactional
     @Override
     public Person selectByPrimaryKey(String id) {
         return personMapper.selectByPrimaryKey(id);

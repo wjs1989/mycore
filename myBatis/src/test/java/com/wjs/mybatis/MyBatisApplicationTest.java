@@ -4,19 +4,34 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wjs.entity.UserTemplate;
 import com.wjs.mybatis.Service.IPersonService;
-import com.wjs.mybatis.configuration.ApplicationConfiguration;
+import com.wjs.mybatis.annotation.LoadBalanceRest;
+import com.wjs.mybatis.configuration.datasource.DynamicDataSource;
 import com.wjs.mybatis.dao.PersonMapper;
+import com.wjs.mybatis.dao.UserMapper;
 import com.wjs.mybatis.model.Animal;
+import com.wjs.mybatis.model.MyDataSource;
 import com.wjs.mybatis.pojo.Person;
+import com.wjs.mybatis.pojo.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
 import java.util.UUID;
 
+import static com.zaxxer.hikari.util.ClockSource.currentTime;
+import static com.zaxxer.hikari.util.ClockSource.elapsedDisplayString;
+import static com.zaxxer.hikari.util.ClockSource.elapsedMillis;
+import static com.zaxxer.hikari.util.ClockSource.plusMillis;
 /**
  * @ClassName MyBatisApplicationTest
  * @Description: TODO
@@ -36,10 +51,39 @@ public class MyBatisApplicationTest {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    @Autowired
+    @LoadBalanceRest
+    @Autowired(required = false)
     private Person person;
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private MyDataSource myDataSource;
+
+    @Transactional
     @Test
+    void UserMapperTest() {
+//         try {
+//             Connection connection = dataSource.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement("select * from user ");
+//             ResultSet resultSet = preparedStatement.executeQuery();
+//
+//
+//         } catch (SQLException e) {
+//             e.printStackTrace();
+//         }
+//
+//         User user = userMapper.selectByPrimaryKey(5);
+
+        Person person = personService.selectByPrimaryKey("5");
+        System.out.println(person);
+    }
+
+   // @Test
     void contextLoads() {
         Animal animal = new Animal();
 
@@ -50,7 +94,7 @@ public class MyBatisApplicationTest {
 
     }
 
-    @Test
+    //@Test
     void contextSql() {
         Person person = new Person();
         person.setId(UUID.randomUUID().toString());
@@ -75,8 +119,18 @@ public class MyBatisApplicationTest {
 
     @Test
     public void ApplicationConfigurationTest(){
-        userTemplate.doPrint(person.getName());
-
+       if( dataSource instanceof DynamicDataSource){
+           DynamicDataSource d = (DynamicDataSource) dataSource;
+           Map<Object, Object> targetDataSourcesSub = d.getTargetDataSources();
+           targetDataSourcesSub.put("mysql4",myDataSource.getDataSource());
+           d.setTargetDataSources(targetDataSourcesSub);
+       }try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from user ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+         }
     }
 
 }

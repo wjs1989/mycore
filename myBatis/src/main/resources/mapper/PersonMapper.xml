@@ -3,7 +3,7 @@
 <mapper namespace="com.wjs.mybatis.dao.PersonMapper">
   <resultMap id="BaseResultMap" type="com.wjs.mybatis.pojo.Person">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="person_id" jdbcType="VARCHAR" property="personId" />
+    <result column="person_id" jdbcType="VARCHAR" property="personId"/>
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="tele_no" jdbcType="VARCHAR" property="teleNo" />
     <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />

@@ -1,14 +1,19 @@
 package com.wjs.myProject;
 
+import com.wjs.myProject.core.aop.service.DbConnation;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MyProjectApplicationTests {
+public class MyProjectApplicationTests {
+
+	@Autowired(required = false)
+	DbConnation dbConnation;
 
 	@Test
-	void contextLoads() {
-	}
+	public void contextLoads(){
 
+		dbConnation.exec("select 1 from wjs_t");
+	}
 }

@@ -4,7 +4,7 @@ import com.wjs.mybatis.pojo.Person;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import com.wjs.mybatis.annotation.LoadBalanceRest;
 /**
  * @ClassName ConditionalConfiguration
  * @Description: Conditional 条件注解测试
@@ -15,11 +15,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConditionalConfiguration {
 
-
+    @LoadBalanceRest
     @Bean
     @ConditionalOnClass(Person.class)
-    public Person person1(){
-        return new Person();
+    public Person person1() {
+        Person person = new Person();
+        person.setName("wjs");
+        return person;
     }
 
 }
