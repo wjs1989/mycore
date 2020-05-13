@@ -14,7 +14,10 @@ import com.wjs.mybatis.pojo.Person;
 import com.wjs.mybatis.pojo.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.junit.ContiPerfRule;
 import org.hibernate.validator.constraints.Length;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,15 @@ import static com.zaxxer.hikari.util.ClockSource.plusMillis;
  **/
 @SpringBootTest
 public class MyBatisApplicationTest {
+
+    @Rule
+    public ContiPerfRule contiPerfRule = new ContiPerfRule();
+
+    @Test
+    @PerfTest(invocations = 1000,threads = 50)
+    public void test(){
+        System.out.println(Thread.currentThread().getName());
+    }
 
     @Autowired
     private UserTemplate userTemplate;
