@@ -55,8 +55,8 @@ public class MyBatisApplicationTest {
         System.out.println(Thread.currentThread().getName());
     }
 
-    @Autowired
-    private UserTemplate userTemplate;
+//    @Autowired
+//    private UserTemplate userTemplate;
 
     @Autowired
     private IPersonService personService;
