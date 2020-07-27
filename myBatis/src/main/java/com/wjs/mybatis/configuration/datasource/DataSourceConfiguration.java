@@ -45,8 +45,6 @@ public class DataSourceConfiguration {
         DynamicDataSource d = new DynamicDataSource();
         Map<Object,Object> dataSourceMap = new HashMap<>();
         dataSourceMap.put("mysql1",dataSource);
-        dataSourceMap.put("mysql2",dataSource);
-        dataSourceMap.put("mysql3",dataSource);
 
         d.setDefaultTargetDataSource(dataSource);
         d.setTargetDataSources(dataSourceMap);

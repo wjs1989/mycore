@@ -25,6 +25,8 @@ spring:
 #    schema: classpath:schema-department.sql,classpath:schema-department2.sql
   wjs:
     person-name: 温建水
+  resources:
+    static-locations:
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -32,6 +34,7 @@ mybatis:
   configuration:
     call-setters-on-nulls: true
 #  config-location:classpath:mybatis-config.xml
+
 
 pagehelper:
   helperDialect: mysql
