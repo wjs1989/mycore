@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootTest
-@ComponentScan("com.wjs.myProject")
+//@SpringBootTest
+//@ComponentScan("com.wjs.myProject")
 public class AopTest {
 
     @Autowired
@@ -20,7 +20,7 @@ public class AopTest {
     @Autowired
     ApplicationContext applicationContext;
 
-    @Test
+   // @Test
     public void contextLoads(){
 
        // ApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.wjs.myProject.core.aop");

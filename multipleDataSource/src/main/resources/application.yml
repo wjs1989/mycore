@@ -1,0 +1,35 @@
+
+#多数据源配置
+spring:
+  datasource:
+    master:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mysql://localhost:3306/xian?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    slave:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mysql://localhost:3306/activiti?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+  mapper-locations: classpath:master/mapper/*.xml,classpath:slave/mapper/*.xml
+  type-aliases-package: com.wjs.multipleDataSource.master.entity,com.wjs.multipleDataSource.slave.entity

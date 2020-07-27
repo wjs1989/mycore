@@ -19,7 +19,7 @@
 		<module>myProject</module>
         <module>myBatis</module>
 		<module>mySpring</module>
-		<module>mySpring</module>
+		<module>multipleDataSource</module>
 	</modules>
 
 	<properties>

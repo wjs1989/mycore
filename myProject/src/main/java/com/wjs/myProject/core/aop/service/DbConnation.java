@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Administrator
  */
-@Component
+//@Component
 public class DbConnation {
 
     public int exec(String sql){

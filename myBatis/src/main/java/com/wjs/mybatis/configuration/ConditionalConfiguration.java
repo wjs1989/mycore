@@ -20,7 +20,7 @@ public class ConditionalConfiguration {
     @ConditionalOnClass(Person.class)
     public Person person1() {
         Person person = new Person();
-        person.setName("wjs");
+        person.setName("wjs11");
         return person;
     }
 

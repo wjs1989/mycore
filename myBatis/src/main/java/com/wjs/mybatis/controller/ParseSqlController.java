@@ -1,6 +1,7 @@
 package com.wjs.mybatis.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wjs.mybatis.model.Animal;
 import com.wjs.mybatis.sqlparse.ISqlParse;
 import com.wjs.mybatis.sqlparse.MySqlParse;
 import com.wjs.mybatis.sqlparse.SqlParseFactory;
@@ -22,12 +23,12 @@ public class ParseSqlController {
 
 
     @PostMapping("/parse")
-    public String SqlParse(@RequestBody GenericSqlModel genericSqlModel) throws Exception {
+    public Animal SqlParse(@RequestBody GenericSqlModel genericSqlModel) throws Exception {
 
         ISqlParse parser = SqlParseFactory.createParser(MySqlParse.class);
-
-        return parser.parse(genericSqlModel);
-
+        Animal animal = new Animal();
+        animal.setName(parser.parse(genericSqlModel));
+        return animal;
     }
 
 
