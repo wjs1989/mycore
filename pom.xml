@@ -20,6 +20,8 @@
         <module>myBatis</module>
 		<module>mySpring</module>
 		<module>multipleDataSource</module>
+		<module>mySpring</module>
+		<module>canal</module>
 	</modules>
 
 	<properties>
