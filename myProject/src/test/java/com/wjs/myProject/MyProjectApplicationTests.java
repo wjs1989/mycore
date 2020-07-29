@@ -1,32 +1,43 @@
 package com.wjs.myProject;
 
-import com.wjs.myProject.configuration.LoadBalanceRestConfiguration;
-import com.wjs.myProject.core.aop.service.DbConnation;
+import com.wjs.myProject.core.distributedlock.lock.ReentrantRedisLock;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class MyProjectApplicationTests {
-
-//	@Autowired(required = false)
-	//DbConnation dbConnation;
-
-	//@Value("${name}")
-//	private String name;
+class MyProjectApplicationTests {
 
 	@Autowired
-	LoadBalanceRestConfiguration loadBalanceRestConfiguration;
+	RedisTemplate redisTemplate;
+
+	Lock lock = null;
 
 	@Test
-	public void contextLoads(){
+	void contextLoads() {
+		lock = new ReentrantRedisLock("redis_key_1",redisTemplate);
+		test1(1);
 
-	//	dbConnation.exec("select 1 from wjs_t");
-		System.out.println(loadBalanceRestConfiguration.getName());
+	}
+	void test1(int i){
+		try {
+			lock.lock();
+
+			redisTemplate.opsForValue().set("count", i);
+			System.out.println(redisTemplate.opsForValue().get("name"));
+			if(i<10) {
+				test1(++i);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+
 	}
 }
