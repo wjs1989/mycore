@@ -29,7 +29,7 @@ class MyProjectApplicationTests {
 			lock.lock();
 
 			redisTemplate.opsForValue().set("count", i);
-			System.out.println(redisTemplate.opsForValue().get("name"));
+			System.out.println(redisTemplate.opsForValue().get("count"));
 			if(i<10) {
 				test1(++i);
 			}

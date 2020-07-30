@@ -234,8 +234,4 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
     private void setThreadId(){
         sync.threadIdCache.putIfAbsent(Thread.currentThread(),"lock_thread_"+ UUID.randomUUID().toString().replace("-",""));
     }
-
-    private String getThreadId(){
-      return sync.threadIdCache.get(Thread.currentThread());
-    }
 }
