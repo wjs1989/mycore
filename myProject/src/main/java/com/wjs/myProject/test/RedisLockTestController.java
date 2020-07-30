@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author wenjs
@@ -17,28 +18,34 @@ import java.util.concurrent.locks.Lock;
 @RestController
 @RequestMapping("red")
 public class RedisLockTestController {
-    @Autowired
     RedisTemplate redisTemplate;
+    Lock lock = null;
 
+    @Autowired
+    public void setRedisTemplate(RedisTemplate redisTemplate){
+        this.redisTemplate = redisTemplate;
+        lock = new ReentrantRedisLock("redis_key_1", redisTemplate);
+    }
   //
   @GetMapping("do1")
     public String setRedis(){
-//        Lock lock = new ReentrantRedisLock("redis_key_1",redisTemplate);
-//        for (int i =0 ;i<100000000;i++) {
-//            try {
-//                lock.lock();
-//
-//                redisTemplate.opsForValue().set("count", i);
-//                System.out.println(redisTemplate.opsForValue().get("count"));
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            } finally {
-//                lock.unlock();
-//            }
-//        }
-
-        return "OK";
+      try {
+          Integer count = null;
+          try {
+              lock.lock();
+              count = (Integer) redisTemplate.opsForValue().get("count");
+              redisTemplate.opsForValue().set("count", count == null ? 0 : ++count);
+              count = (Integer) redisTemplate.opsForValue().get("count");
+              System.out.println(count);
+          } catch (Exception e) {
+              throw e;
+          } finally {
+              lock.unlock();
+          }
+          return "count="+count;
+      }catch (Exception e){
+          return "执行异常"+e.toString();
+      }
     }
 
 }
