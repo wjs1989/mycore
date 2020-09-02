@@ -11,6 +11,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 /**
@@ -34,6 +35,8 @@ public class SlaveDataSourceConfig {
     public SqlSessionFactory sqlSessionFactory(@Qualifier("slaveDataSource") DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean ();
         sessionFactoryBean.setDataSource(dataSource);
+        sessionFactoryBean.setMapperLocations( new PathMatchingResourcePatternResolver().getResources("classpath:/mapper/*Mapper.xml") );
+// sessionFactoryBean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:/mapper/*/*Mapper.xml"));
 
         return sessionFactoryBean.getObject();
     }

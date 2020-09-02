@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.wjs.multipleDataSource.master.entity.Sect;
 import com.wjs.multipleDataSource.slave.entity.User;
 
+import java.util.List;
+
 /**
  * @ClassName UserService
  * @Description: TODO
@@ -12,4 +14,5 @@ import com.wjs.multipleDataSource.slave.entity.User;
  * @Version V1.0
  **/
 public interface UserService extends IService<User> {
+    List<User> getUsers();
 }

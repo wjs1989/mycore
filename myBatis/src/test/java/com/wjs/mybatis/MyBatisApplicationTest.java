@@ -2,7 +2,6 @@ package com.wjs.mybatis;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.wjs.entity.UserTemplate;
 import com.wjs.mybatis.Service.IPersonService;
 import com.wjs.mybatis.annotation.LoadBalanceRest;
 import com.wjs.mybatis.configuration.datasource.DynamicDataSource;
@@ -10,13 +9,13 @@ import com.wjs.mybatis.dao.PersonMapper;
 import com.wjs.mybatis.dao.UserMapper;
 import com.wjs.mybatis.model.Animal;
 import com.wjs.mybatis.model.MyDataSource;
+import com.wjs.mybatis.model.ZeroEvenOdd;
 import com.wjs.mybatis.pojo.Person;
 import com.wjs.mybatis.pojo.User;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
-import org.hibernate.validator.constraints.Length;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,11 +30,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.IntConsumer;
 
 import static com.zaxxer.hikari.util.ClockSource.currentTime;
 import static com.zaxxer.hikari.util.ClockSource.elapsedDisplayString;
 import static com.zaxxer.hikari.util.ClockSource.elapsedMillis;
 import static com.zaxxer.hikari.util.ClockSource.plusMillis;
+
 /**
  * @ClassName MyBatisApplicationTest
  * @Description: TODO
@@ -50,8 +51,8 @@ public class MyBatisApplicationTest {
     public ContiPerfRule contiPerfRule = new ContiPerfRule();
 
     @Test
-    @PerfTest(invocations = 1000,threads = 50)
-    public void test(){
+    @PerfTest(invocations = 1000, threads = 50)
+    public void test() {
         System.out.println(Thread.currentThread().getName());
     }
 
@@ -81,7 +82,7 @@ public class MyBatisApplicationTest {
     @Test
     void UserMapperTest() throws SQLException {
 //         try {
-             Connection connection = dataSource.getConnection();
+        Connection connection = dataSource.getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement("select * from user ");
 //             ResultSet resultSet = preparedStatement.executeQuery();
 //
@@ -96,12 +97,12 @@ public class MyBatisApplicationTest {
         System.out.println(person);
     }
 
-   // @Test
+    // @Test
     void contextLoads() {
         Animal animal = new Animal();
 
         MetaObject metaObject = SystemMetaObject.forObject(animal);
-        metaObject.setValue("name","bean");
+        metaObject.setValue("name", "bean");
         System.out.print(animal.getName());
 
 
@@ -115,12 +116,12 @@ public class MyBatisApplicationTest {
         //personService.insert(person);
 
 
-       // Person person1 = personService.selectByPrimaryKey("3f6d45b2-db58-4132-b868-ba4b01ac5af1");
+        // Person person1 = personService.selectByPrimaryKey("3f6d45b2-db58-4132-b868-ba4b01ac5af1");
 
 
         // PersonMapper personMapper = sqlSessionTemplate.getMapper(PersonMapper.class);
         // PersonMapper personMapper1 = sqlSessionTemplate.getMapper(PersonMapper.class);
-          PersonMapper personMapper2 = sqlSessionTemplate.getMapper(PersonMapper.class);
+        PersonMapper personMapper2 = sqlSessionTemplate.getMapper(PersonMapper.class);
 
 
         Page<Person> objects = PageHelper.offsetPage(1, 2);
@@ -131,24 +132,30 @@ public class MyBatisApplicationTest {
     }
 
     @Test
-    public void ApplicationConfigurationTest(){
+    public void ApplicationConfigurationTest() {
 
-       if( dataSource instanceof DynamicDataSource){
-           DynamicDataSource d = (DynamicDataSource) dataSource;
-           Map<Object, Object> targetDataSourcesSub = d.getTargetDataSources();
-           targetDataSourcesSub.put("mysql4",myDataSource.getDataSource());
-           d.setTargetDataSources(targetDataSourcesSub);
-       }
+        if (dataSource instanceof DynamicDataSource) {
+            DynamicDataSource d = (DynamicDataSource) dataSource;
+            Map<Object, Object> targetDataSourcesSub = d.getTargetDataSources();
+            targetDataSourcesSub.put("mysql4", myDataSource.getDataSource());
+            d.setTargetDataSources(targetDataSourcesSub);
+        }
 
-       try {
+        try {
 
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from user ");
             ResultSet resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
-         }
+        }
 
+    }
+
+    @Test
+    public void ThreadTest(){
+        System.out.println(23/24);
+        System.out.println(Math.floor(23/24));
     }
 
 }

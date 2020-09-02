@@ -1,16 +1,16 @@
 
-#¶àÊý¾ÝÔ´ÅäÖÃ
+#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
 spring:
   datasource:
     master:
       username: root
       password: 123456
-      jdbc-url: jdbc:mysql://localhost:3306/xian?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/xian?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
       driver-class-name: com.mysql.cj.jdbc.Driver
     slave:
       username: root
       password: 123456
-      jdbc-url: jdbc:mysql://localhost:3306/activiti?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      jdbc-url: jdbc:mysql://118.24.22.139:8721/activiti?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 
@@ -19,9 +19,9 @@ mybatis-plus:
     db-config:
       id-type: auto
       field-strategy: not_empty
-      #ÍÕ·åÏÂ»®Ïß×ª»»
+      #ï¿½Õ·ï¿½ï¿½Â»ï¿½ï¿½ï¿½×ªï¿½ï¿½
       column-underline: true
-      #Âß¼­É¾³ýÅäÖÃ
+      #ï¿½ß¼ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       logic-delete-value: 0
       logic-not-delete-value: 1
       db-type: mysql

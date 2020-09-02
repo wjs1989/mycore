@@ -6,6 +6,8 @@ import com.wjs.multipleDataSource.slave.mapper.UserMapper;
 import com.wjs.multipleDataSource.slave.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName UserServiceImpl
  * @Description: TODO
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+    @Override
+    public List<User> getUsers() {
+        return this.baseMapper.getUsers();
+    }
 }

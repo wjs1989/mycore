@@ -1,14 +1,16 @@
 package com.wjs.myProject;
 
-import com.wjs.myProject.core.distributedlock.lock.ReentrantRedisLock;
+import com.wjs.myProject.test.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.StringUtils;
 
-import java.util.concurrent.TimeUnit;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @SpringBootTest
 class MyProjectApplicationTests {
@@ -19,25 +21,24 @@ class MyProjectApplicationTests {
 	Lock lock = null;
 
 	@Test
-	void contextLoads() {
-		lock = new ReentrantRedisLock("redis_key_1",redisTemplate);
-		test1(1);
+	void contextLoads() throws IllegalAccessException {
 
+		User user = new User("wenjs",18);
+
+		//redisTemplate.opsForHash().put("persion","persionKey",user);
+
+
+		redisTemplate.opsForHash().putAll("persion",objectToMap(user));
 	}
-	void test1(int i){
-		try {
-			lock.lock();
-
-			redisTemplate.opsForValue().set("count", i);
-			System.out.println(redisTemplate.opsForValue().get("count"));
-			if(i<10) {
-				test1(++i);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			lock.unlock();
+	public static Map<String, Object> objectToMap(Object obj) throws IllegalAccessException {
+		Map<String, Object> map = new HashMap<String,Object>();
+		Class<?> clazz = obj.getClass();
+		for (Field field : clazz.getDeclaredFields()) {
+			field.setAccessible(true);
+			String fieldName = field.getName();
+			Object value =  String.valueOf(field.get(obj));
+			map.put(fieldName, value);
 		}
-
+		return map;
 	}
 }

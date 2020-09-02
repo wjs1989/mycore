@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -24,10 +25,7 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
 
         private static final long serialVersionUID = -5179523762034025860L;
         public final Map<Thread,String> threadIdCache = new HashMap<>();
-        /**
-         * Performs {@link Lock#lock}. The main reason for subclassing
-         * is to allow fast path for nonfair version.
-         */
+
         abstract void lock();
 
         final boolean nonfairTryAcquire(int acquires) {
@@ -69,22 +67,22 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
         }
 
         protected  final boolean tryRedisRelease(int releases){
-            int c = getRedisState() - releases;
             if (Thread.currentThread() != getExclusiveOwnerThread()) {
                 throw new IllegalMonitorStateException();
             }
+
+            int old = getRedisState();
+            int c = old - releases;
             boolean free = true;
-            setRedisState(c);
+            while(!compareAndSetRedisState(old,c,threadIdCache.get(Thread.currentThread())));
             if (c == 0) {
-                deleteRedisState();
+                threadIdCache.remove(Thread.currentThread());
             }
             return free;
         }
 
         @Override
         protected final boolean isHeldExclusively() {
-            // While we must in general read state before owner,
-            // we don't need to do so to check if current thread is owner
             return getExclusiveOwnerThread() == Thread.currentThread();
         }
 
@@ -92,7 +90,6 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
             return new ConditionObject();
         }
 
-        // Methods relayed from outer class
 
         final Thread getOwner() {
             return getState() == 0 ? null : getExclusiveOwnerThread();
@@ -106,21 +103,13 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
             return getState() != 0;
         }
 
-        /**
-         * Reconstitutes the instance from a stream (that is, deserializes it).
-         */
         private void readObject(java.io.ObjectInputStream s)
                 throws java.io.IOException, ClassNotFoundException {
             s.defaultReadObject();
             setState(0); // reset to unlocked state
         }
 
-        /**
-         * Performs non-fair tryLock.  tryAcquire is implemented in
-         * subclasses, but both need nonfair try for trylock method.
-         */
         final boolean nonfairRedisTryAcquire(int acquires) {
-            final Thread current = Thread.currentThread();
             int c = getRedisState();
             String threadId = threadIdCache.get(Thread.currentThread());
             if (c == 0) {
@@ -154,14 +143,6 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
             this.redisTemplate = redisTemplate;
         }
 
-        public NonfairSync(RedisTemplate redisTemplate) {
-            super();
-            this.redisTemplate = redisTemplate;
-        }
-        /**
-         * Performs lock.  Try immediate barge, backing up to normal
-         * acquire on failure.
-         */
         @Override
         final void lock() {
             if (compareAndSetState(0, 1)) {
@@ -190,13 +171,12 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
 
     }
 
+
+
     public ReentrantRedisLock(String key,RedisTemplate redisTemplate){
         sync = new NonfairSync(key,redisTemplate);
     }
 
-    public ReentrantRedisLock(RedisTemplate redisTemplate){
-        sync = new NonfairSync(redisTemplate);
-    }
     @Override
     public void lock() {
         setThreadId();
@@ -232,6 +212,8 @@ public class ReentrantRedisLock implements Lock, java.io.Serializable{
     }
 
     private void setThreadId(){
-        sync.threadIdCache.putIfAbsent(Thread.currentThread(),"lock_thread_"+ UUID.randomUUID().toString().replace("-",""));
+        String threadId = "lock_thread_"+ UUID.randomUUID().toString().replace("-","");
+        System.out.println("当前线程id："+threadId);
+        sync.threadIdCache.putIfAbsent(Thread.currentThread(),threadId);
     }
 }
